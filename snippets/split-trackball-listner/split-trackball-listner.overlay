@@ -19,7 +19,7 @@
             >;
 
         scroller {
-            layer = <1>;
+            layers = <1>;
             input-processors = <&zip_xy_to_scroll_mapper>;
         };
      };
