@@ -12,10 +12,15 @@
     >;
 
     // Layer 1 active: trackball scrolls instead of moving the pointer.
-    // Overrides replace the base processors above (no invert / scaler here).
+    // Overrides replace the base processors above (no invert / scaler here),
+    // so raw sensor axes are mapped: ball forward = scroll up. Raw X is
+    // mirrored relative to the pointer, so invert HWHEEL to pan with the ball.
     scroller {
         layers = <1>;
-        input-processors = <&zip_xy_to_scroll_mapper>;
+        input-processors = <
+            &zip_xy_to_scroll_mapper
+            &zip_scroll_transform INPUT_TRANSFORM_X_INVERT
+        >;
     };
 };
 
