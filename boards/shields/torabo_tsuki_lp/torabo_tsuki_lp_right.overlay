@@ -1,9 +1,27 @@
+#define TORABO_TSUKI_LP_RIGHT 1
+#define TORABO_TSUKI_LP_MATRIX_COL_OFFSET 7
+
 #include "torabo_tsuki_lp.dtsi"
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 
 &pointing_listener {
-    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>;
+    input-processors = <
+        &zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)
+        &zip_xy_scaler 4 5
+    >;
+
+    // Layer 1 active: trackball scrolls instead of moving the pointer.
+    // Overrides replace the base processors above (no invert / scaler here),
+    // so raw sensor axes are mapped: ball forward = scroll up. Raw X is
+    // mirrored relative to the pointer, so invert HWHEEL to pan with the ball.
+    scroller {
+        layers = <1>;
+        input-processors = <
+            &zip_xy_to_scroll_mapper
+            &zip_scroll_transform INPUT_TRANSFORM_X_INVERT
+        >;
+    };
 };
 
 &size_s_transform {
