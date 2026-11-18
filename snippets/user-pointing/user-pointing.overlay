@@ -10,7 +10,7 @@
  *
  * NOTE: input-processors below replaces the shield's whole list, so the
  * shield's X/Y invert is duplicated here. When syncing upstream, compare it
- * with &pointing_listener in boards/shields/torabo_tsuki_lp/*.overlay; if
+ * with &pointing_listener in the shield's torabo_tsuki_lp_{left,right}.overlay; if
  * upstream changes that list, this file silently overrides it.
  */
 
