@@ -4,8 +4,14 @@
  * Applied as a snippet so that it is processed after the shield overlay
  * (config/<shield>.overlay is processed *before* it in ZMK v0.3, so it can
  * neither reference &pointing_listener nor override its properties).
- * Kept out of the upstream-owned shield files so upstream syncs never touch
- * or silently drop these settings. Add it after input-listener in build.yaml.
+ * Kept out of the upstream-owned shield files so upstream syncs do not
+ * conflict with it textually. Use it on the central builds that enable the
+ * input-listener snippet (the listener is disabled elsewhere).
+ *
+ * NOTE: input-processors below replaces the shield's whole list, so the
+ * shield's X/Y invert is duplicated here. When syncing upstream, compare it
+ * with &pointing_listener in boards/shields/torabo_tsuki_lp/*.overlay; if
+ * upstream changes that list, this file silently overrides it.
  */
 
 #include <dt-bindings/zmk/input_transform.h>
