@@ -1,0 +1,2 @@
+// Fork-local overrides for the right half (applied after the shield overlay).
+#include "torabo_tsuki_lp_pointing.dtsi"

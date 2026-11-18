@@ -1,0 +1,33 @@
+/*
+ * Fork-local pointing tweaks for torabo-tsuki LP.
+ *
+ * Included from config/torabo_tsuki_lp_{left,right}.overlay, which ZMK
+ * applies after the shield overlays. Kept here so that syncing the shield
+ * files from upstream never touches (or silently drops) these settings.
+ *
+ * &pointing_listener, &zip_* processors and the shield's own includes come
+ * from boards/shields/torabo_tsuki_lp/torabo_tsuki_lp_{left,right}.overlay.
+ * The listener is only enabled by the input-listener snippet (central builds).
+ */
+
+#include <dt-bindings/zmk/input_transform.h>
+
+&pointing_listener {
+    // Replaces the shield's value: keep its X/Y invert, then scale to 4/5.
+    input-processors = <
+        &zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)
+        &zip_xy_scaler 4 5
+    >;
+
+    // Layer 1 active: trackball scrolls instead of moving the pointer.
+    // Overrides replace the base processors above (no invert / scaler here),
+    // so raw sensor axes are mapped: ball forward = scroll up. Raw X is
+    // mirrored relative to the pointer, so invert HWHEEL to pan with the ball.
+    scroller {
+        layers = <1>;
+        input-processors = <
+            &zip_xy_to_scroll_mapper
+            &zip_scroll_transform INPUT_TRANSFORM_X_INVERT
+        >;
+    };
+};
