@@ -1,13 +1,11 @@
 /*
- * Fork-local pointing tweaks for torabo-tsuki LP.
+ * Fork-local pointing tweaks for torabo-tsuki LP (not part of upstream).
  *
- * Included from config/torabo_tsuki_lp_{left,right}.overlay, which ZMK
- * applies after the shield overlays. Kept here so that syncing the shield
- * files from upstream never touches (or silently drops) these settings.
- *
- * &pointing_listener, &zip_* processors and the shield's own includes come
- * from boards/shields/torabo_tsuki_lp/torabo_tsuki_lp_{left,right}.overlay.
- * The listener is only enabled by the input-listener snippet (central builds).
+ * Applied as a snippet so that it is processed after the shield overlay
+ * (config/<shield>.overlay is processed *before* it in ZMK v0.3, so it can
+ * neither reference &pointing_listener nor override its properties).
+ * Kept out of the upstream-owned shield files so upstream syncs never touch
+ * or silently drop these settings. Add it after input-listener in build.yaml.
  */
 
 #include <dt-bindings/zmk/input_transform.h>

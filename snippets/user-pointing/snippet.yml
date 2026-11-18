@@ -1,0 +1,3 @@
+name: user-pointing
+append:
+  EXTRA_DTC_OVERLAY_FILE: user-pointing.overlay
